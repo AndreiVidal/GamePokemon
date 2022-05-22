@@ -11,6 +11,7 @@ NOMES_ALEATORIO = [
     'Ash Ketchum', 'Misty', 'Brock', 'Serena',
     'Chris', 'Cilan',
 ]
+
 POKEMONS = [
     PokemonFogo('Charmander'),
     PokemonFogo('Charmilion'),
@@ -38,13 +39,26 @@ class Personagens:
     def __str__(self):
         return self.nome
 
+
     def mostrar_pokemon(self):
         if self.pokemons:
             print(f'Pokedex de {self}')
-            for pokemon in self.pokemons:
-                print(pokemon)
+            for index, pokemon in enumerate(self.pokemons):
+                print(f'[{index}] - [{pokemon}]')
         else:
             print(f'{self} não possui nenhum Pokemon')
+
+
+    def pokemon_batalha(self):
+        pass
+        self.mostrar_pokemon()
+
+
+    def batalhar(self, pessoa):
+        print(f'{self} iniciou uma batalha com {pessoa}')
+
+        pessoa.mostrar_pokemon()
+
 
 
 class Player(Personagens):
@@ -68,5 +82,4 @@ class Inimigo(Personagens):
         if not pokemons:
             for i in range(random.randint(1, 6)):
                 pokemons.append(random.choice(POKEMONS))
-
 
