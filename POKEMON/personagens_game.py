@@ -44,22 +44,34 @@ class Personagens:
         if self.pokemons:
             print(f'Pokedex de {self}')
             for index, pokemon in enumerate(self.pokemons):
-                print(f'[{index}] - [{pokemon}]')
+                print(f'[{index}] - {pokemon}')
         else:
             print(f'{self} não possui nenhum Pokemon')
 
 
     def pokemon_batalha(self):
-        pass
         self.mostrar_pokemon()
+        
+
+        if self.pokemons:
+            while True:
+                escolha = input('Escolha um pokemon para batalhar: ')
+                try:
+                    escolha = int(escolha)
+                    pokemon_escolhido = self.pokemons[escolha]
+                    print(f'{pokemon_escolhido} eu escolho voçê!!!')
+                    return pokemon_escolhido
+                    
+                except:
+                    print('Escolha inválida: ')
+        else:
+            print('Voçê não possui Pokemon para batalhar.')
 
 
     def batalhar(self, pessoa):
         print(f'{self} iniciou uma batalha com {pessoa}')
-
         pessoa.mostrar_pokemon()
-
-
+        self.pokemon_batalha()
 
 class Player(Personagens):
     tipo = 'player'

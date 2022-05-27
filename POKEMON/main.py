@@ -10,9 +10,9 @@ def primeiro_pokemon(player):
     squirtle = PokemonAgua('Squirtle', 1)
     
     print('''
-    Voçê tem 3 pokemons disponíveis para escolher
+    Voçê tem 3 pokemons disponíveis para escolher:
     [1] - Pikachu
-    [2] - Carmander
+    [2] - Charmander
     [3] - Squirtle   
 ''')
 
