@@ -15,7 +15,6 @@ class Pokemon:
         else:
             self.nome = especie
 
-
     def __str__(self):
         return f'{self.nome}({self.level})'
 

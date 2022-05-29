@@ -39,7 +39,6 @@ class Personagens:
     def __str__(self):
         return self.nome
 
-
     def mostrar_pokemon(self):
         if self.pokemons:
             print(f'Pokedex de {self}')
@@ -48,10 +47,30 @@ class Personagens:
         else:
             print(f'{self} não possui nenhum Pokemon')
 
+    def escolher_pokemon(self):
+        if self.pokemons:
+            pokemon_escolhido = random.choice(self.pokemons)
+            print(f'Pokemon escolhido por {self} foi {pokemon_escolhido}.')
+            return pokemon_escolhido
+        else:
+            print('Esse jogador não possui pokemon para ser escolhido.')
+
+    def batalhar(self, pessoa):
+        print(f'{self} iniciou uma batalha com {pessoa}')
+        pessoa.mostrar_pokemon()
+        pessoa.escolher_pokemon()
+        self.pokemon_batalha()
+
+
+class Player(Personagens):
+    tipo = 'player'
+
+    def capturar(self, pokemon):
+        self.pokemons.append(pokemon)
+        print(f'{self} capturou {pokemon}')
 
     def pokemon_batalha(self):
         self.mostrar_pokemon()
-        
 
         if self.pokemons:
             while True:
@@ -61,24 +80,10 @@ class Personagens:
                     pokemon_escolhido = self.pokemons[escolha]
                     print(f'{pokemon_escolhido} eu escolho voçê!!!')
                     return pokemon_escolhido
-                    
                 except:
                     print('Escolha inválida: ')
         else:
             print('Voçê não possui Pokemon para batalhar.')
-
-
-    def batalhar(self, pessoa):
-        print(f'{self} iniciou uma batalha com {pessoa}')
-        pessoa.mostrar_pokemon()
-        self.pokemon_batalha()
-
-class Player(Personagens):
-    tipo = 'player'
-
-    def capturar(self, pokemon):
-        self.pokemons.append(pokemon)
-        print(f'{self} capturou {pokemon}')
 
 
 class Inimigo(Personagens):
@@ -94,4 +99,3 @@ class Inimigo(Personagens):
         if not pokemons:
             for i in range(random.randint(1, 6)):
                 pokemons.append(random.choice(POKEMONS))
-
