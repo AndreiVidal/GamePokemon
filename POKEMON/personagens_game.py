@@ -1,5 +1,6 @@
 from pokemon_game import *
 import random
+from time import sleep
 
 NOMES_INIMIGOS = [
     'Equipe Rocket', 'Jessie', 'James', 'Cassidy', 'Proton',
@@ -40,6 +41,7 @@ class Personagens:
         return self.nome
 
     def mostrar_pokemon(self):
+        sleep(1)
         if self.pokemons:
             print(f'Pokedex de {self}')
             for index, pokemon in enumerate(self.pokemons):
@@ -48,6 +50,7 @@ class Personagens:
             print(f'{self} não possui nenhum Pokemon')
 
     def escolher_pokemon(self):
+        sleep(1)
         if self.pokemons:
             pokemon_escolhido = random.choice(self.pokemons)
             print(f'Pokemon escolhido por {self} foi {pokemon_escolhido}.')
@@ -56,10 +59,26 @@ class Personagens:
             print('Esse jogador não possui pokemon para ser escolhido.')
 
     def batalhar(self, pessoa):
+        sleep(1)
         print(f'{self} iniciou uma batalha com {pessoa}')
         pessoa.mostrar_pokemon()
-        pessoa.escolher_pokemon()
-        self.pokemon_batalha()
+        pokemon_adversario = pessoa.escolher_pokemon()
+        pokemon = self.pokemon_batalha()
+
+        if pokemon and pokemon_adversario:
+
+            while True:
+
+                vitoria = pokemon.atacar(pokemon_adversario)
+                if vitoria:
+                    sleep(1)
+                    print(f'{self} Ganhou !!')
+                    break
+                derrota = pokemon_adversario.atacar(pokemon)
+                if derrota:
+                    sleep(1)
+                    print(f'{pessoa} Venceu !!')
+                    break
 
 
 class Player(Personagens):
@@ -67,6 +86,7 @@ class Player(Personagens):
 
     def capturar(self, pokemon):
         self.pokemons.append(pokemon)
+        sleep(1)
         print(f'{self} capturou {pokemon}')
 
     def pokemon_batalha(self):
@@ -74,10 +94,12 @@ class Player(Personagens):
 
         if self.pokemons:
             while True:
+                sleep(1)
                 escolha = input('Escolha um pokemon para batalhar: ')
                 try:
                     escolha = int(escolha)
                     pokemon_escolhido = self.pokemons[escolha]
+                    sleep(1)
                     print(f'{pokemon_escolhido} eu escolho voçê!!!')
                     return pokemon_escolhido
                 except:

@@ -31,5 +31,3 @@ def pokemon_inicial(player):
             break
         else:
             print('Escolha inválida')
-
-
