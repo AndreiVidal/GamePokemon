@@ -35,13 +35,13 @@ class Personagens:
             self.nome = nome
         else:
             self.nome = random.choice(NOMES_ALEATORIO)
+
         self.pokemons = pokemons
 
     def __str__(self):
         return self.nome
 
     def mostrar_pokemon(self):
-        sleep(1)
         if self.pokemons:
             print(f'Pokedex de {self}')
             for index, pokemon in enumerate(self.pokemons):
@@ -95,7 +95,7 @@ class Player(Personagens):
         if self.pokemons:
             while True:
                 sleep(1)
-                escolha = input('Escolha um pokemon para batalhar: ')
+                escolha = input('Escolha um pokemon para batalhar:')
                 try:
                     escolha = int(escolha)
                     pokemon_escolhido = self.pokemons[escolha]
@@ -107,17 +107,33 @@ class Player(Personagens):
         else:
             print('Voçê não possui Pokemon para batalhar.')
 
+    def explorar(self):
+        if random.random() <= 0.3:
+            pokemon = random.choice(POKEMONS)
+            print(f'Um pokemon apareceu: {pokemon}')
+
+            escolha = input(f'Deseja capturar {pokemon}. [S]/[N] ')
+            if escolha == 's':
+                if random.random() >= 0.4:
+                    self.capturar(pokemon)
+                else:
+                    print(f'{pokemon} fugiu!!')
+            else:
+                print('Boa viagem..')
+        else:
+            print('Voçê nao encontrou nenhum pokemon.')
+
 
 class Inimigo(Personagens):
     tipo = 'inimigo'
 
     def __init__(self, nome=None, pokemons=None):
-        if pokemons is None:
-            pokemons = []
-
-        super().__init__(nome=nome, pokemons=pokemons)
         if not nome:
             self.nome = random.choice(NOMES_INIMIGOS)
         if not pokemons:
+            pokemons_aleatorio = []
             for i in range(random.randint(1, 6)):
-                pokemons.append(random.choice(POKEMONS))
+                pokemons_aleatorio.append(random.choice(POKEMONS))
+            super().__init__(nome=nome, pokemons=pokemons_aleatorio)
+        else:
+            super().__init__(nome=nome, pokemons=pokemons)
